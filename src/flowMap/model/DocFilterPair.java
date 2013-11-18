@@ -15,7 +15,7 @@ public class DocFilterPair extends IntId implements IRecordUser {
 
   @DatabaseField(columnName = RECORD_FULL_NAME_COL, width = 256)
   String documentFullName;
-  @DatabaseField(columnName = RECORD_NODE_ID_COL, foreign = true)
+  @DatabaseField(columnName = RECORD_NODE_ID_COL, foreign = true, foreignAutoRefresh = true)
   private Node recordNode;
 
   @DatabaseField(columnName = FILTER_COL, width = 4000)

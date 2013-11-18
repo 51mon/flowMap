@@ -41,13 +41,13 @@ public class Node extends NamedIntId {
   ForeignCollection<Record> documents;
 
   public Service getService() {
-    return (services != null && services.isEmpty()) ? null : services.iterator().next();
+    return (services == null || services.isEmpty()) ? null : services.iterator().next();
   }
   public Trigger getTrigger() {
-    return (triggers != null && triggers.isEmpty()) ? null : triggers.iterator().next();
+    return (triggers == null || triggers.isEmpty()) ? null : triggers.iterator().next();
   }
   public Notification getNotification() {
-    return (notifications != null && notifications.isEmpty()) ? null : notifications.iterator().next();
+    return (notifications == null || notifications.isEmpty()) ? null : notifications.iterator().next();
   }
   public Adapter getAdapter() {
     return (connections == null || connections.isEmpty() || connections.iterator() == null) ? null : connections.iterator().next();
@@ -140,7 +140,7 @@ public class Node extends NamedIntId {
   }
 
   public String getFullName() {
-    if (this.path.equals(""))
+    if (this.path == null || this.path.equals(""))
       return this.name;
     else
       return this.path+":"+this.name;

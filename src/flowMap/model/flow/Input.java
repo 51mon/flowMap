@@ -58,6 +58,38 @@ public class Input extends IntId {
     setValue(value);
   }
 
+  public String getString() {
+    return string;
+  }
+
+  public void setString(String string) {
+    this.string = string;
+  }
+
+  public int getInteger() {
+    return integer;
+  }
+
+  public void setInteger(int integer) {
+    this.integer = integer;
+  }
+
+  public boolean isBool() {
+    return bool;
+  }
+
+  public void setBool(boolean bool) {
+    this.bool = bool;
+  }
+
+  public Input getParent() {
+    return parent;
+  }
+
+  public void setParent(Input parent) {
+    this.parent = parent;
+  }
+
   public String getKey() {
     return key;
   }

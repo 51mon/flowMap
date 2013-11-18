@@ -11,7 +11,7 @@ public class AdapterItem extends NodeChild {
   @DatabaseField(columnName = ADAPTER_FULL_NAME_COL)
   String adapterFullName;
   public static final String ADAPTER_ID_COL = "adapter_id";
-  @DatabaseField(columnName = ADAPTER_ID_COL, foreign = true)
+  @DatabaseField(columnName = ADAPTER_ID_COL, foreign = true, foreignAutoRefresh = true)
   Adapter adapter;
 
   public AdapterItem() {}

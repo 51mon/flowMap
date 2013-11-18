@@ -220,8 +220,15 @@ public class JdbcRouter extends Router {
         htmlData.append("</tr>");
       }
       //htmlData.append("<tr><td colspan='"+nbCols+"'>"+nbRows+"</td></tr>");
-      if (nbRows == maxRows)
-        htmlData.append("<tr><td colspan='"+nbCols+"'><a href='/"+fullUrl+"?page="+(page+1)+"'>Next page</a></td></tr>");
+      if (page > 1 || nbRows == maxRows) {
+        htmlData.append("<tr><td>");
+        if (page > 1)
+          htmlData.append("<a href='/"+fullUrl+"?page="+(page-1)+"'>Previous page</a> ");
+        htmlData.append("</td><td colspan='"+(nbCols-1)+"'>");
+        if (nbRows == maxRows)
+          htmlData.append("<a href='/"+fullUrl+"?page="+(page+1)+"'>Next page</a>");
+        htmlData.append("</td></tr>");
+      }
       htmlData.append("</table>");
       model.put("body", queryHtml.toString()+htmlData.toString());
       return handler.render("layout.jade", model);

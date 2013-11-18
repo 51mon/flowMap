@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// com.j256.ormlite.jdbc.JdbcDatabaseResults (90)
 public class API {
   //private ConnectionSource connectionSource;
   private JdbcPooledConnectionSource connectionSource;
@@ -79,7 +80,9 @@ public class API {
       Input.class,
       Mapping.class,
       Notification.class,
-      ProcessingRule.class
+      ProcessingRule.class,
+      Flow.class,
+      FlowItem.class
   };
   //public String render(String name, HashMap<String, Object> model) {
   //  return Jade4J.render(templates.get(name), model);
@@ -92,7 +95,14 @@ public class API {
           BaseDaoImpl dao = DaoManager.createDao(getConnectionSource(), c);
           daos.put(c, dao);
       }
-      return DaoManager.createDao(getConnectionSource(), c);
+      return daos.get(c);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+  public <T> void refresh(Class<T> c, T object) {
+    try {
+      getDao(c).refresh(object);
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }

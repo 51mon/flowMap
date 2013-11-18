@@ -84,11 +84,11 @@ public class TestOracle {
 //    }
 //    System.out.println(sb.append("</ul>").toString());
 
-    Map<String, Object> attributes = new HashMap<String, Object>();
-    Handler.match(attributes, "test[sub][sub2]", "a");
-    System.out.println(attributes);
-
-    System.exit(0);
+//    Map<String, Object> attributes = new HashMap<String, Object>();
+//    Handler.match(attributes, "test[sub][sub2]", "a");
+//    System.out.println(attributes);
+//    System.out.println(api.getDao(TriggerCondition.class).queryForId(1).getServiceNode().getId());
+//    System.exit(0);
 
     api.dropTables();
     api.createTables();

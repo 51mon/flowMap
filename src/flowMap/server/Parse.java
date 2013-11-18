@@ -412,7 +412,7 @@ public class Parse {
         mapItem.setVariableSubstitution(set.isVariables());
         //Util.log("check mapItem "+mapItem.getInput()+" "+mapItem.isVariableSubstitution());
         Util.api.getDao(MapItem.class).update(mapItem);
-        Mapping mapping = parseMapping(set.getField(), null, null, mapItem, null);
+        Mapping mapping = parseMapping(set.getField(), null, null, null, mapItem);
         //el.(set.getField().replaceAll("^[/]", "").replaceAll(";1;0$", ""), set.getInput().toString());
       }
     if (inputMap.getCopyMaps() != null)

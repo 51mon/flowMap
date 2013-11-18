@@ -14,7 +14,7 @@ public class TriggerCondition extends NamedIntId implements IServiceUser {
   // cf IServiceUser
   @DatabaseField(columnName = SERVICE_FULL_NAME_COL)
   String serviceNodeFullName;
-  @DatabaseField(columnName = SERVICE_NODE_ID_COL, foreign = true)
+  @DatabaseField(columnName = SERVICE_NODE_ID_COL, foreign = true, foreignAutoRefresh = true)
   Node serviceNode;
 
 
