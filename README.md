@@ -1,3 +1,5 @@
 flowMap
 =======
-webMethods IS package to map the flows
+Uses:
+- ormlite as ORM
+- Jade as templating language
