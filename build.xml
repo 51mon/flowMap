@@ -1,0 +1,13 @@
+<project default="main">
+    <target name="main">
+        <scp file="out/artifacts/flowMap.jar"
+             todir="eai:${password}@eaiwbmd01:/opt/eai/is/optimiser_frly/IntegrationServer/packages/FlowMap/code/jars"
+             trust="true"/>
+        <!--get src="http://eaiwbmd01.rm.corp.local:3010/WmRoot/package-list.dsp?action=reload&amp;package=FlowMap" dest="reload.html"
+             username="Administrator"
+             password="${password}"/-->
+    </target>
+    <target name="test">
+
+    </target>
+</project>
