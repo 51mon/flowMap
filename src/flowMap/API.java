@@ -107,6 +107,21 @@ public class API {
       throw new RuntimeException(e);
     }
   }
+  public <T> T createOrUpdate(Class<T> c, T object) throws SQLException {
+    try {
+      getDao(c).createOrUpdate(object);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return object;
+  }
+  public <T> void delete(Class<T> c, T object) throws SQLException {
+    try {
+      getDao(c).delete(object);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   // findOrCreate for named classes
   public OS findOrCreate(Dao<OS, Integer> dao, String arch, String name, String version) {
@@ -145,10 +160,6 @@ public <T extends NamedIntId> T find(Class<T> c, String name)
     } else {
       throw new RuntimeException(list.size()+" "+c.getSimpleName()+" found for "+name);
     }
-  }
-  public <T> T createOrUpdate(Class<T> c, T object) throws SQLException {
-    DaoManager.createDao(Util.api.getConnectionSource(), c).createOrUpdate(object);
-    return object;
   }
   public <T extends NamedIntId> T findOrCreate(Class<T> c, String name)
       throws SQLException {
@@ -208,16 +219,6 @@ public <T extends NamedIntId> T find(Class<T> c, String name)
     }
     return id;
   }
-  public <T extends NamedIntId> void delete(Class<T> c, String name) throws SQLException {
-    Dao<T,Integer> dao = getDao(c);
-    // Delete the Node if it already exists
-    List<T> list = dao.queryBuilder().where()
-        .eq("name", name)
-        .query();
-    for (T old : list) {
-      dao.delete(old);
-    }
-  }
 
   int indexForConstraints = 0;
   private void addConstraint(Class model, String ref_key, Class ref_model) throws SQLException {
@@ -272,6 +273,9 @@ public <T extends NamedIntId> T find(Class<T> c, String name)
     addConstraint(IS.class,           IS.OS_ID_COL,              OS.class);
     addConstraint(OS.class,           OS.STAGE_ID_COL,           Stage.class);
     addConstraint(Input.class,        Input.PARENT_ID_COL,       Input.class);
+    addConstraint(FlowItem.class,     FlowItem.FLOW_ID_COL,      Flow.class);
+    addConstraint(FlowItem.class,     FlowItem.ELEMENT_ID_COL,   Element.class);
+    addConstraint(FlowItem.class,     FlowItem.NODE_ID_COL,      Node.class);
   }
   public void dropTables() throws SQLException {
     //TableUtils.dropTable(connectionSource, AdapterService.class, true);
@@ -285,7 +289,7 @@ public <T extends NamedIntId> T find(Class<T> c, String name)
       connectionSource.getReadWriteConnection().executeStatement(constraint, DatabaseConnection.DEFAULT_RESULT_FLAGS);
     }
     for (int i = models.length-1; i>=0; i--) { // reverse order than creation to respect constraints
-      TableUtils.dropTable(connectionSource, models[i], true); // ignoreError
+      TableUtils.dropTable(connectionSource, models[i], false); // ignoreError
     }
   }
 }

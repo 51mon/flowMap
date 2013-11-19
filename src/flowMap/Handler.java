@@ -331,12 +331,13 @@ public class Handler implements HTTPHandler {
     return sb.append("</table>").toString();
   }
   void parseIDataHelper(StringBuilder sb, String gif, String path, Object value) {
-    sb.append("<tr><td align='center'><img src='/"+Util.url+"/static/"+gif+"'></td><td>").append(path).append("</td><td>").append(value).append("</td></tr>");
+    sb.append("<tr><td align='right' style='font-style: italic;'>").append(path)
+        .append("</td><td align='center' style='padding: 0; padding-left: 0.5em;'><img src='/"+Util.url+"/static/"+gif+"'></td><td>").append(value).append("</td></tr>");
   }
   void parseIData(IDataCursor cursor, StringBuilder sb, String _path) {
     cursor.first();
     while (cursor.hasMoreData()) {
-      String path = _path+"/"+cursor.getKey();
+      String path = _path.equals("") ? cursor.getKey() : _path+"/"+cursor.getKey();
       if (cursor.getValue() instanceof IData)
         parseIData(((IData)cursor.getValue()).getCursor(), sb, path);
       else if (cursor.getValue() instanceof String)
@@ -351,6 +352,8 @@ public class Handler implements HTTPHandler {
         parseIDataHelper(sb, "obj_list_integer.gif", path, StringUtils.join(cursor.getValue(), "<br>"));
       else if (cursor.getValue() instanceof Boolean[])
         parseIDataHelper(sb, "obj_list_boolean.gif", path, StringUtils.join(cursor.getValue(), "<br>"));
+      else
+        parseIDataHelper(sb, "field_object.gif", path, cursor.getValue());
       cursor.next();
     }
   }

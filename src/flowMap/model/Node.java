@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import flowMap.model.flow.Element;
 
 import java.lang.*;
 
@@ -39,6 +40,9 @@ public class Node extends NamedIntId {
   ForeignCollection<Adapter> connections;
   @ForeignCollectionField(eager = true, foreignFieldName = "node")
   ForeignCollection<Record> documents;
+
+  @ForeignCollectionField(eager = true)
+  ForeignCollection<Element> dependents;
 
   public Service getService() {
     return (services == null || services.isEmpty()) ? null : services.iterator().next();
@@ -98,6 +102,14 @@ public class Node extends NamedIntId {
 //    this.type = Type.NOTIFICATION;
 //    this.notification = notification;
 //  }
+
+  public ForeignCollection<Element> getDependents() {
+    return dependents;
+  }
+
+  public void setDependents(ForeignCollection<Element> dependents) {
+    this.dependents = dependents;
+  }
 
   public String getPackageName() {
     return packageName;

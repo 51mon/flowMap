@@ -121,13 +121,15 @@ public class Parse {
     }
   }
 
-  public static Node parseService(IDataCursor cursor, String serviceName, WmPackage wmPackage) throws ServiceException, SQLException {
+  public static Node parseService(IDataCursor cursor, String serviceName, WmPackage wmPackage)
+      throws ServiceException, SQLException {
     cursor.insertAfter("parseService", serviceName);
     NSNode node = Util.getNode(serviceName);
     //cursor.insertAfter("node class", node.getClass().getName());
     if (node == null) {
-      throw new ServiceException("Service not found: "+serviceName);
-      //return;
+      //throw new ServiceException("Service not found: "+serviceName);
+      Util.log("Service not found: "+serviceName);
+      return null;
     }
     String[] splitName = Util.splitFullName(node.getNSName().getFullName());
     Dao<Node,Integer> dao = Util.api.getDao(Node.class);

@@ -3,7 +3,8 @@ package flowMap.model;
 import com.j256.ormlite.field.DatabaseField;
 
 public class IntId {
-  @DatabaseField(generatedId = true, allowGeneratedIdInsert = true) // to allow delete and reset an object (ex Node)
+  public static final String ID_COL = "id";
+  @DatabaseField(generatedId = true, allowGeneratedIdInsert = true, columnName = ID_COL) // to allow delete and reset an object (ex Node)
   int id;
 
   public int getId() {

@@ -10,6 +10,9 @@ public class WmPackage extends NamedIntId {
   @ForeignCollectionField(eager = true)
   ForeignCollection<IS_WmPackage> iS_WmPackages;
 
+  @ForeignCollectionField(eager = true)
+  ForeignCollection<Node> nodes;
+
   // contains services, triggers & adapter_services
   public WmPackage() {}
   public WmPackage(String name) {

@@ -12,9 +12,6 @@ public class FlowItem extends IntId {
   public static final String NODE_ID_COL = "node_id";
   @DatabaseField(columnName = NODE_ID_COL, foreign = true)
   Node node;
-  public static final String ADAPTER_ID_COL = "adapter_id";
-  @DatabaseField(columnName = ADAPTER_ID_COL, foreign = true)
-  Adapter adapter;
   public static final String ELEMENT_ID_COL = "element_id";
   @DatabaseField(columnName = ELEMENT_ID_COL, foreign = true)
   Element element;
@@ -55,14 +52,6 @@ public class FlowItem extends IntId {
 
   public void setNode(Node node) {
     this.node = node;
-  }
-
-  public Adapter getAdapter() {
-    return adapter;
-  }
-
-  public void setAdapter(Adapter adapter) {
-    this.adapter = adapter;
   }
 
   public int getPosition() {
